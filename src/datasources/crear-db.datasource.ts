@@ -5,7 +5,7 @@ const config = {
   name: 'crear_db',
   connector: 'postgresql',
   url: '',
-  host: '192.168.4.250',
+  host: '192.168.9.250',
   port: 5432,
   user: 'epalomino',
   password: '4cc3s03p4L0M1n0',

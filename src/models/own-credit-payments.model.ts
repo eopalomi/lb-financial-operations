@@ -526,29 +526,31 @@ export class OwnCreditPayments extends Entity {
 
   @property({
     type: 'number',
-    required: true,
+    required: false,
     postgresql: {
       columnName: 'hor_rec',
       dataType: 'varchar',
       nullable: true,
     },
+    jsonSchema: {nullable: true},
   })
   hor_rec: number;
 
   @property({
     type: 'number',
-    required: true,
+    required: false,
     postgresql: {
       columnName: 'vou_eess',
       dataType: 'varchar',
       nullable: true,
     },
+    jsonSchema: {nullable: true},
   })
   vou_eess: number;
 
   @property({
     type: 'number',
-    required: true,
+    required: false,
     postgresql: {
       columnName: 'bru_eess',
       dataType: 'numeric',
@@ -556,12 +558,13 @@ export class OwnCreditPayments extends Entity {
       dataScale: 2,
       nullable: true,
     },
+    jsonSchema: {nullable: true},
   })
   bru_eess: number;
 
   @property({
     type: 'number',
-    required: true,
+    required: false,
     postgresql: {
       columnName: 'itf_ent',
       dataType: 'numeric',
@@ -569,12 +572,13 @@ export class OwnCreditPayments extends Entity {
       dataScale: 2,
       nullable: true,
     },
+    jsonSchema: {nullable: true},
   })
   itf_ent: number;
 
   @property({
     type: 'number',
-    required: true,
+    required: false,
     postgresql: {
       columnName: 'itf_sal',
       dataType: 'numeric',
@@ -582,12 +586,13 @@ export class OwnCreditPayments extends Entity {
       dataScale: 2,
       nullable: true,
     },
+    jsonSchema: {nullable: true},
   })
   itf_sal: number;
 
   @property({
     type: 'number',
-    required: true,
+    required: false,
     postgresql: {
       columnName: 'rec_net',
       dataType: 'numeric',
@@ -595,12 +600,13 @@ export class OwnCreditPayments extends Entity {
       dataScale: 2,
       nullable: true,
     },
+    jsonSchema: {nullable: true},
   })
   rec_net: number;
 
   @property({
     type: 'number',
-    required: true,
+    required: false,
     postgresql: {
       columnName: 'com_cof',
       dataType: 'numeric',
@@ -608,12 +614,13 @@ export class OwnCreditPayments extends Entity {
       dataScale: 2,
       nullable: true,
     },
+    jsonSchema: {nullable: true},
   })
   com_cof: number;
 
   @property({
     type: 'number',
-    required: true,
+    required: false,
     postgresql: {
       columnName: 'net_tot',
       dataType: 'numeric',
@@ -621,28 +628,31 @@ export class OwnCreditPayments extends Entity {
       dataScale: 2,
       nullable: true,
     },
+    jsonSchema: {nullable: true},
   })
   net_tot: number;
 
   @property({
     type: 'number',
-    required: true,
+    required: false,
     postgresql: {
       columnName: 'cod_eess',
       dataType: 'varchar',
       nullable: true,
     },
+    jsonSchema: {nullable: true},
   })
   cod_eess: number;
 
   @property({
     type: 'number',
-    required: true,
+    required: false,
     postgresql: {
       columnName: 'nom_eess',
       dataType: 'varchar',
       nullable: true,
     },
+    jsonSchema: {nullable: true},
   })
   nom_eess: number;
 
@@ -994,6 +1004,18 @@ export class OwnCreditPayments extends Entity {
     jsonSchema: {nullable: true}
   })
   cod_ds: number;
+
+  @property({
+    type: 'string',
+    required: true,
+    postgresql: {
+      columnName: 'usu_aut_con',
+      dataType: 'varchar',
+      nullable: true,
+    },
+    jsonSchema: {nullable: true}
+  })
+  usu_aut_con: string;
 
   constructor(data?: Partial<OwnCreditPayments>) {
     super(data);

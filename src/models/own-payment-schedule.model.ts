@@ -104,6 +104,17 @@ export class OwnPaymentSchedule extends Entity {
   })
   sal_igv: number;
 
+  @property({
+    type: 'string',
+    required: true,
+  })
+  fec_can: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  fec_can_cuo: string;
 
   constructor(data?: Partial<OwnPaymentSchedule>) {
     super(data);

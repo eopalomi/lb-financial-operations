@@ -7,13 +7,13 @@ import {
   Where,
 } from '@loopback/repository';
 import {
-  post,
-  param,
+  del,
   get,
   getModelSchemaRef,
+  param,
   patch,
+  post,
   put,
-  del,
   requestBody,
   response,
 } from '@loopback/rest';
@@ -23,8 +23,8 @@ import {OwnPaymentScheduleRepository} from '../repositories';
 export class OwnPaymentScheduleController {
   constructor(
     @repository(OwnPaymentScheduleRepository)
-    public ownPaymentScheduleRepository : OwnPaymentScheduleRepository,
-  ) {}
+    public ownPaymentScheduleRepository: OwnPaymentScheduleRepository,
+  ) { }
 
   @post('/own-payment-schedules')
   @response(200, {
@@ -37,7 +37,7 @@ export class OwnPaymentScheduleController {
         'application/json': {
           schema: getModelSchemaRef(OwnPaymentSchedule, {
             title: 'NewOwnPaymentSchedule',
-            
+
           }),
         },
       },
@@ -111,12 +111,13 @@ export class OwnPaymentScheduleController {
     return this.ownPaymentScheduleRepository.findById(id, filter);
   }
 
-  @patch('/own-payment-schedules/{id}')
+  @patch('/own-payment-schedules/{creditCode}/{paymentNumber}')
   @response(204, {
     description: 'OwnPaymentSchedule PATCH success',
   })
   async updateById(
-    @param.path.string('id') id: string,
+    @param.path.string('creditCode') creditCode: string,
+    @param.path.string('paymentNumber') paymentNumber: number,
     @requestBody({
       content: {
         'application/json': {
@@ -126,7 +127,21 @@ export class OwnPaymentScheduleController {
     })
     ownPaymentSchedule: OwnPaymentSchedule,
   ): Promise<void> {
-    await this.ownPaymentScheduleRepository.updateById(id, ownPaymentSchedule);
+    // await this.ownPaymentScheduleRepository.updateById(creditCode, ownPaymentSchedule);
+    await this.ownPaymentScheduleRepository.execute(`
+      /***** Actualizar Saldos *****/
+      update mae_cuo mc set
+        sal_cap = ${ownPaymentSchedule.sal_cap},
+        sal_int = ${ownPaymentSchedule.sal_int},
+        sal_seg = ${ownPaymentSchedule.sal_seg},
+        sal_seg_desgra = ${ownPaymentSchedule.sal_seg_desgra},
+        sal_mor = ${ownPaymentSchedule.sal_mor},
+        sal_seg_prev = ${ownPaymentSchedule.sal_seg_prev},
+        fec_can = '${ownPaymentSchedule.fec_can}',
+        fec_can_cuo = '${ownPaymentSchedule.fec_can_cuo}'
+      where cod_cre = '${creditCode}'
+      and num_cuo = '${paymentNumber}';
+    `)
   }
 
   @put('/own-payment-schedules/{id}')

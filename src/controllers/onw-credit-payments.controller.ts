@@ -7,13 +7,13 @@ import {
   Where,
 } from '@loopback/repository';
 import {
-  post,
-  param,
+  del,
   get,
   getModelSchemaRef,
+  param,
   patch,
+  post,
   put,
-  del,
   requestBody,
   response,
 } from '@loopback/rest';
@@ -23,8 +23,8 @@ import {OwnCreditPaymentsRepository} from '../repositories';
 export class OnwCreditPaymentsController {
   constructor(
     @repository(OwnCreditPaymentsRepository)
-    public ownCreditPaymentsRepository : OwnCreditPaymentsRepository,
-  ) {}
+    public ownCreditPaymentsRepository: OwnCreditPaymentsRepository,
+  ) { }
 
   @post('/own-credit-payments')
   @response(200, {
@@ -37,7 +37,7 @@ export class OnwCreditPaymentsController {
         'application/json': {
           schema: getModelSchemaRef(OwnCreditPayments, {
             title: 'NewOwnCreditPayments',
-            
+
           }),
         },
       },
@@ -105,10 +105,10 @@ export class OnwCreditPaymentsController {
     },
   })
   async findById(
-    @param.path.string('id') id: string,
+    @param.path.string('creditCode') creditCode: string,
     @param.filter(OwnCreditPayments, {exclude: 'where'}) filter?: FilterExcludingWhere<OwnCreditPayments>
   ): Promise<OwnCreditPayments> {
-    return this.ownCreditPaymentsRepository.findById(id, filter);
+    return this.ownCreditPaymentsRepository.findById(creditCode, filter);
   }
 
   @patch('/own-credit-payments/{id}')

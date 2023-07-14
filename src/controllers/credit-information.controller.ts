@@ -46,7 +46,7 @@ export class CreditInformationController {
               inner join mae_int mi on mi.num_ide = mc.ide_coo
           where mc.cod_Cre = '${cod_cre}';
     `);
-    console.log("response", response)
+
     const creditInformation = new CreditInformation();
 
     const validateField = (value: any) => {
