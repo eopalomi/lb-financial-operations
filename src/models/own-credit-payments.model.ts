@@ -658,7 +658,7 @@ export class OwnCreditPayments extends Entity {
   swt_tip_pag: string;
 
   @property({
-    type: 'date',
+    type: 'string',
     required: true,
     postgresql: {
       columnName: 'fec_reg',
@@ -713,18 +713,19 @@ export class OwnCreditPayments extends Entity {
   fec_pag_rea: string;
 
   @property({
-    type: 'number',
-    required: true,
+    type: 'string',
+    required: false,
     postgresql: {
       columnName: 'tip_pagcuo',
       dataType: 'varchar',
       nullable: true,
     },
+    jsonSchema: {nullable: true},
   })
-  tip_pagcuo: number;
+  tip_pagcuo: string;
 
   @property({
-    type: 'number',
+    type: 'string',
     required: true,
     postgresql: {
       columnName: 'swt_ser',
@@ -732,27 +733,29 @@ export class OwnCreditPayments extends Entity {
       nullable: true,
     },
   })
-  swt_ser: number;
+  swt_ser: string;
 
   @property({
-    type: 'number',
-    required: true,
+    type: 'string',
+    required: false,
     postgresql: {
       columnName: 'can_ant',
       dataType: 'varchar',
       nullable: true,
     },
+    jsonSchema: {nullable: true},
   })
   can_ant: string;
 
   @property({
     type: 'string',
-    required: true,
+    required: false,
     postgresql: {
       columnName: 'swt_can',
       dataType: 'varchar',
       nullable: true,
     },
+    jsonSchema: {nullable: true},
   })
   swt_can: string;
 
@@ -764,6 +767,7 @@ export class OwnCreditPayments extends Entity {
       dataType: 'varchar',
       nullable: true,
     },
+    jsonSchema: {nullable: true},
   })
   emp_tra: string;
 
@@ -775,6 +779,7 @@ export class OwnCreditPayments extends Entity {
       dataType: 'varchar',
       nullable: true,
     },
+    jsonSchema: {nullable: true},
   })
   emp_ven: string;
 
@@ -878,8 +883,9 @@ export class OwnCreditPayments extends Entity {
       dataType: 'varchar',
       nullable: true,
     },
+    jsonSchema: {nullable: true},
   })
-  cue_ban: string;
+  cue_ban?: string | null;
 
   @property({
     type: 'string',
@@ -894,25 +900,27 @@ export class OwnCreditPayments extends Entity {
 
   @property({
     type: 'string',
-    required: true,
+    required: false,
     postgresql: {
       columnName: 'swt_pag_ban',
       dataType: 'varchar',
       nullable: true,
     },
+    jsonSchema: {nullable: true}
   })
-  swt_pag_ban: string;
+  swt_pag_ban: string | null;
 
   @property({
     type: 'string',
-    required: true,
+    required: false,
     postgresql: {
       columnName: 'num_vou_ban',
       dataType: 'varchar',
       nullable: true,
     },
+    jsonSchema: {nullable: true}
   })
-  num_vou_ban: string;
+  num_vou_ban: string | null;
 
   @property({
     type: 'number',
@@ -972,6 +980,20 @@ export class OwnCreditPayments extends Entity {
     },
   })
   pag_seg_prev: number;
+
+  @property({
+    type: 'number',
+    required: false,
+    postgresql: {
+      columnName: 'cod_ds',
+      dataType: 'numeric',
+      dataPrecision: 10,
+      dataScale: 0,
+      nullable: true,
+    },
+    jsonSchema: {nullable: true}
+  })
+  cod_ds: number;
 
   constructor(data?: Partial<OwnCreditPayments>) {
     super(data);

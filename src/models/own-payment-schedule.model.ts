@@ -15,6 +15,12 @@ export class OwnPaymentSchedule extends Entity {
   cod_cre: string;
 
   @property({
+    type: 'string',
+    required: true,
+  })
+  fec_ven: string;
+
+  @property({
     type: 'number',
     required: true,
   })
