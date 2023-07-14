@@ -5,7 +5,7 @@ before_script:
 
 variables:
     # PORTDOCKER: 3325
-    PORTDOCKER: 3175
+    PORTDOCKER: 3000
     # PORTSALIDA: 3325
     PORTSALIDA: 3175
     IMAGENAME: lb-credit-financial-transaction
