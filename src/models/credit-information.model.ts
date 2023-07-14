@@ -52,6 +52,12 @@ export class CreditInformation extends Entity {
   })
   cod_int: string;
 
+  @property({
+    type: 'boolean',
+    required: false,
+  })
+  il_admacc: string;
+
 
   constructor(data?: Partial<CreditInformation>) {
     super(data);

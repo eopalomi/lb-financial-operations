@@ -71,7 +71,7 @@ export class TransferredCreditPayments extends Entity {
   cod_int: string;
 
   @property({
-    type: 'date',
+    type: 'string',
     required: true,
     postgresql: {
       columnName: 'fec_pag',
@@ -79,10 +79,10 @@ export class TransferredCreditPayments extends Entity {
       nullable: 'NO',
     },
   })
-  fec_pag: Date;
+  fec_pag: string;
 
   @property({
-    type: 'date',
+    type: 'string',
     required: true,
     postgresql: {
       columnName: 'hor_pag',
@@ -93,7 +93,7 @@ export class TransferredCreditPayments extends Entity {
   hor_pag: string;
 
   @property({
-    type: 'date',
+    type: 'string',
     required: true,
     postgresql: {
       columnName: 'fec_doc',
@@ -101,7 +101,7 @@ export class TransferredCreditPayments extends Entity {
       nullable: 'NO',
     },
   })
-  fec_doc: Date;
+  fec_doc: string;
 
   @property({
     type: 'number',
@@ -282,7 +282,7 @@ export class TransferredCreditPayments extends Entity {
   tip_ope: string;
 
   @property({
-    type: 'date',
+    type: 'string',
     required: true,
     postgresql: {
       columnName: 'ult_pag',
@@ -526,29 +526,31 @@ export class TransferredCreditPayments extends Entity {
 
   @property({
     type: 'number',
-    required: true,
+    required: false,
     postgresql: {
       columnName: 'hor_rec',
       dataType: 'varchar',
       nullable: true,
     },
+    jsonSchema: {nullable: true},
   })
   hor_rec: number;
 
   @property({
     type: 'number',
-    required: true,
+    required: false,
     postgresql: {
       columnName: 'vou_eess',
       dataType: 'varchar',
       nullable: true,
     },
+    jsonSchema: {nullable: true},
   })
   vou_eess: number;
 
   @property({
     type: 'number',
-    required: true,
+    required: false,
     postgresql: {
       columnName: 'bru_eess',
       dataType: 'numeric',
@@ -556,12 +558,13 @@ export class TransferredCreditPayments extends Entity {
       dataScale: 2,
       nullable: true,
     },
+    jsonSchema: {nullable: true},
   })
   bru_eess: number;
 
   @property({
     type: 'number',
-    required: true,
+    required: false,
     postgresql: {
       columnName: 'itf_ent',
       dataType: 'numeric',
@@ -569,12 +572,13 @@ export class TransferredCreditPayments extends Entity {
       dataScale: 2,
       nullable: true,
     },
+    jsonSchema: {nullable: true},
   })
   itf_ent: number;
 
   @property({
     type: 'number',
-    required: true,
+    required: false,
     postgresql: {
       columnName: 'itf_sal',
       dataType: 'numeric',
@@ -582,12 +586,13 @@ export class TransferredCreditPayments extends Entity {
       dataScale: 2,
       nullable: true,
     },
+    jsonSchema: {nullable: true},
   })
   itf_sal: number;
 
   @property({
     type: 'number',
-    required: true,
+    required: false,
     postgresql: {
       columnName: 'rec_net',
       dataType: 'numeric',
@@ -595,12 +600,13 @@ export class TransferredCreditPayments extends Entity {
       dataScale: 2,
       nullable: true,
     },
+    jsonSchema: {nullable: true},
   })
   rec_net: number;
 
   @property({
     type: 'number',
-    required: true,
+    required: false,
     postgresql: {
       columnName: 'com_cof',
       dataType: 'numeric',
@@ -608,12 +614,13 @@ export class TransferredCreditPayments extends Entity {
       dataScale: 2,
       nullable: true,
     },
+    jsonSchema: {nullable: true},
   })
   com_cof: number;
 
   @property({
     type: 'number',
-    required: true,
+    required: false,
     postgresql: {
       columnName: 'net_tot',
       dataType: 'numeric',
@@ -621,33 +628,36 @@ export class TransferredCreditPayments extends Entity {
       dataScale: 2,
       nullable: true,
     },
+    jsonSchema: {nullable: true},
   })
   net_tot: number;
 
   @property({
     type: 'number',
-    required: true,
+    required: false,
     postgresql: {
       columnName: 'cod_eess',
       dataType: 'varchar',
       nullable: true,
     },
+    jsonSchema: {nullable: true},
   })
   cod_eess: number;
 
   @property({
     type: 'number',
-    required: true,
+    required: false,
     postgresql: {
       columnName: 'nom_eess',
       dataType: 'varchar',
       nullable: true,
     },
+    jsonSchema: {nullable: true},
   })
   nom_eess: number;
 
   @property({
-    type: 'number',
+    type: 'string',
     required: true,
     postgresql: {
       columnName: 'swt_tip_pag',
@@ -655,10 +665,10 @@ export class TransferredCreditPayments extends Entity {
       nullable: true,
     },
   })
-  swt_tip_pag: number;
+  swt_tip_pag: string;
 
   @property({
-    type: 'number',
+    type: 'string',
     required: true,
     postgresql: {
       columnName: 'fec_reg',
@@ -666,10 +676,10 @@ export class TransferredCreditPayments extends Entity {
       nullable: true,
     },
   })
-  fec_reg: number;
+  fec_reg: string;
 
   @property({
-    type: 'number',
+    type: 'string',
     required: true,
     postgresql: {
       columnName: 'hor_reg',
@@ -677,10 +687,10 @@ export class TransferredCreditPayments extends Entity {
       nullable: true,
     },
   })
-  hor_reg: number;
+  hor_reg: string;
 
   @property({
-    type: 'number',
+    type: 'string',
     required: true,
     postgresql: {
       columnName: 'usu_reg',
@@ -688,10 +698,10 @@ export class TransferredCreditPayments extends Entity {
       nullable: true,
     },
   })
-  usu_reg: number;
+  usu_reg: string;
 
   @property({
-    type: 'number',
+    type: 'string',
     required: true,
     postgresql: {
       columnName: 'fec_reg_pag',
@@ -699,10 +709,10 @@ export class TransferredCreditPayments extends Entity {
       nullable: true,
     },
   })
-  fec_reg_pag: number;
+  fec_reg_pag: string;
 
   @property({
-    type: 'number',
+    type: 'string',
     required: true,
     postgresql: {
       columnName: 'fec_pag_rea',
@@ -710,21 +720,22 @@ export class TransferredCreditPayments extends Entity {
       nullable: true,
     },
   })
-  fec_pag_rea: number;
+  fec_pag_rea: string;
 
   @property({
-    type: 'number',
-    required: true,
+    type: 'string',
+    required: false,
     postgresql: {
       columnName: 'tip_pagcuo',
       dataType: 'varchar',
       nullable: true,
     },
+    jsonSchema: {nullable: true},
   })
-  tip_pagcuo: number;
+  tip_pagcuo: string;
 
   @property({
-    type: 'number',
+    type: 'string',
     required: true,
     postgresql: {
       columnName: 'swt_ser',
@@ -732,49 +743,53 @@ export class TransferredCreditPayments extends Entity {
       nullable: true,
     },
   })
-  swt_ser: number;
+  swt_ser: string;
 
   @property({
-    type: 'number',
-    required: true,
+    type: 'string',
+    required: false,
     postgresql: {
       columnName: 'can_ant',
       dataType: 'varchar',
       nullable: true,
     },
+    jsonSchema: {nullable: true},
   })
   can_ant: string;
 
   @property({
     type: 'string',
-    required: true,
+    required: false,
     postgresql: {
       columnName: 'swt_can',
       dataType: 'varchar',
       nullable: true,
     },
+    jsonSchema: {nullable: true},
   })
   swt_can: string;
 
   @property({
     type: 'string',
-    required: true,
+    required: false,
     postgresql: {
       columnName: 'emp_tra',
       dataType: 'varchar',
       nullable: true,
     },
+    jsonSchema: {nullable: true},
   })
   emp_tra: string;
 
   @property({
     type: 'string',
-    required: true,
+    required: false,
     postgresql: {
       columnName: 'emp_ven',
       dataType: 'varchar',
       nullable: true,
     },
+    jsonSchema: {nullable: true},
   })
   emp_ven: string;
 
@@ -812,7 +827,7 @@ export class TransferredCreditPayments extends Entity {
   tip_amo_rop: string;
 
   @property({
-    type: 'Date',
+    type: 'string',
     required: true,
     postgresql: {
       columnName: 'fec_ven_pag',
@@ -820,7 +835,7 @@ export class TransferredCreditPayments extends Entity {
       nullable: true,
     },
   })
-  fec_ven_pag: Date;
+  fec_ven_pag: string;
 
   @property({
     type: 'string',
@@ -872,14 +887,15 @@ export class TransferredCreditPayments extends Entity {
 
   @property({
     type: 'string',
-    required: true,
+    required: false,
     postgresql: {
       columnName: 'cue_ban',
       dataType: 'varchar',
       nullable: true,
     },
+    jsonSchema: {nullable: true},
   })
-  cue_ban: string;
+  cue_ban?: string | null;
 
   @property({
     type: 'string',
@@ -894,25 +910,27 @@ export class TransferredCreditPayments extends Entity {
 
   @property({
     type: 'string',
-    required: true,
+    required: false,
     postgresql: {
       columnName: 'swt_pag_ban',
       dataType: 'varchar',
       nullable: true,
     },
+    jsonSchema: {nullable: true}
   })
-  swt_pag_ban: string;
+  swt_pag_ban: string | null;
 
   @property({
     type: 'string',
-    required: true,
+    required: false,
     postgresql: {
       columnName: 'num_vou_ban',
       dataType: 'varchar',
       nullable: true,
     },
+    jsonSchema: {nullable: true}
   })
-  num_vou_ban: string;
+  num_vou_ban: string | null;
 
   @property({
     type: 'number',
@@ -937,7 +955,7 @@ export class TransferredCreditPayments extends Entity {
   co_dispag: number;
 
   @property({
-    type: 'Date',
+    type: 'string',
     required: true,
     postgresql: {
       columnName: 'fe_propre',
@@ -945,7 +963,7 @@ export class TransferredCreditPayments extends Entity {
       nullable: true,
     },
   })
-  fe_propre: Date;
+  fe_propre: string;
 
   @property({
     type: 'number',
@@ -972,6 +990,32 @@ export class TransferredCreditPayments extends Entity {
     },
   })
   pag_seg_prev: number;
+
+  @property({
+    type: 'number',
+    required: false,
+    postgresql: {
+      columnName: 'cod_ds',
+      dataType: 'numeric',
+      dataPrecision: 10,
+      dataScale: 0,
+      nullable: true,
+    },
+    jsonSchema: {nullable: true}
+  })
+  cod_ds: number;
+
+  @property({
+    type: 'string',
+    required: true,
+    postgresql: {
+      columnName: 'usu_aut_con',
+      dataType: 'varchar',
+      nullable: true,
+    },
+    jsonSchema: {nullable: true}
+  })
+  usu_aut_con: string;
 
   constructor(data?: Partial<TransferredCreditPayments>) {
     super(data);

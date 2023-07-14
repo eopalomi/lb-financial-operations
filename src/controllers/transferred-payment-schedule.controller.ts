@@ -7,13 +7,13 @@ import {
   Where,
 } from '@loopback/repository';
 import {
-  post,
-  param,
+  del,
   get,
   getModelSchemaRef,
+  param,
   patch,
+  post,
   put,
-  del,
   requestBody,
   response,
 } from '@loopback/rest';
@@ -23,8 +23,8 @@ import {TransferredPaymentScheduleRepository} from '../repositories';
 export class TransferredPaymentScheduleController {
   constructor(
     @repository(TransferredPaymentScheduleRepository)
-    public transferredPaymentScheduleRepository : TransferredPaymentScheduleRepository,
-  ) {}
+    public transferredPaymentScheduleRepository: TransferredPaymentScheduleRepository,
+  ) { }
 
   @post('/transferred-payment-schedules')
   @response(200, {
@@ -37,7 +37,7 @@ export class TransferredPaymentScheduleController {
         'application/json': {
           schema: getModelSchemaRef(TransferredPaymentSchedule, {
             title: 'NewTransferredPaymentSchedule',
-            
+
           }),
         },
       },
@@ -111,12 +111,13 @@ export class TransferredPaymentScheduleController {
     return this.transferredPaymentScheduleRepository.findById(id, filter);
   }
 
-  @patch('/transferred-payment-schedules/{id}')
+  @patch('/transferred-payment-schedules/{creditCode}/{paymentNumber}')
   @response(204, {
     description: 'TransferredPaymentSchedule PATCH success',
   })
   async updateById(
-    @param.path.string('id') id: string,
+    @param.path.string('creditCode') creditCode: string,
+    @param.path.string('paymentNumber') paymentNumber: number,
     @requestBody({
       content: {
         'application/json': {
@@ -126,7 +127,21 @@ export class TransferredPaymentScheduleController {
     })
     transferredPaymentSchedule: TransferredPaymentSchedule,
   ): Promise<void> {
-    await this.transferredPaymentScheduleRepository.updateById(id, transferredPaymentSchedule);
+    // await this.ownPaymentScheduleRepository.updateById(creditCode, ownPaymentSchedule);
+    await this.transferredPaymentScheduleRepository.execute(`
+        /***** Actualizar Saldos *****/
+        update mae_cuo_ven mc set
+          sal_cap = ${transferredPaymentSchedule.sal_cap},
+          sal_int = ${transferredPaymentSchedule.sal_int},
+          sal_seg = ${transferredPaymentSchedule.sal_seg},
+          sal_seg_desgra = ${transferredPaymentSchedule.sal_seg_desgra},
+          sal_mor = ${transferredPaymentSchedule.sal_mor},
+          sal_seg_prev = ${transferredPaymentSchedule.sal_seg_prev},
+          fec_can = '${transferredPaymentSchedule.fec_can}',
+          fec_can_cuo = '${transferredPaymentSchedule.fec_can_cuo}'
+        where cod_cre = '${creditCode}'
+        and num_cuo = '${paymentNumber}';
+      `)
   }
 
   @put('/transferred-payment-schedules/{id}')

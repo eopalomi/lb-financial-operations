@@ -15,6 +15,12 @@ export class TransferredPaymentSchedule extends Entity {
   cod_cre: string;
 
   @property({
+    type: 'string',
+    required: true,
+  })
+  fec_ven: string;
+
+  @property({
     type: 'number',
     required: true,
   })
@@ -97,6 +103,18 @@ export class TransferredPaymentSchedule extends Entity {
     required: true,
   })
   sal_igv: number;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  fec_can: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  fec_can_cuo: string;
 
   constructor(data?: Partial<TransferredPaymentSchedule>) {
     super(data);
