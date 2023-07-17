@@ -54,7 +54,6 @@ export class CreditInformationController {
           where mc.cod_Cre = '${cod_cre}';
     `);
 
-    console.log("response", response)
     const creditInformation = new CreditInformation();
 
     const validateField = (value: any) => {

@@ -7,13 +7,14 @@ import {
   Where,
 } from '@loopback/repository';
 import {
-  post,
-  param,
+  del,
   get,
   getModelSchemaRef,
+  HttpErrors,
+  param,
   patch,
+  post,
   put,
-  del,
   requestBody,
   response,
 } from '@loopback/rest';
@@ -23,8 +24,8 @@ import {TransferredCreditPaymentsRepository} from '../repositories';
 export class TransferredCreditPaymentsController {
   constructor(
     @repository(TransferredCreditPaymentsRepository)
-    public transferredCreditPaymentsRepository : TransferredCreditPaymentsRepository,
-  ) {}
+    public transferredCreditPaymentsRepository: TransferredCreditPaymentsRepository,
+  ) { }
 
   @post('/transferred-credit-payments')
   @response(200, {
@@ -37,7 +38,7 @@ export class TransferredCreditPaymentsController {
         'application/json': {
           schema: getModelSchemaRef(TransferredCreditPayments, {
             title: 'NewTransferredCreditPayments',
-            
+
           }),
         },
       },
@@ -140,11 +141,37 @@ export class TransferredCreditPaymentsController {
     await this.transferredCreditPaymentsRepository.replaceById(id, transferredCreditPayments);
   }
 
-  @del('/transferred-credit-payments/{id}')
+  @del('/transferred-credit-payments/{creditCode}')
   @response(204, {
     description: 'TransferredCreditPayments DELETE success',
   })
-  async deleteById(@param.path.string('id') id: string): Promise<void> {
-    await this.transferredCreditPaymentsRepository.deleteById(id);
+  async deleteById(
+    @param.path.string('creditCode', {length: 8}) creditCode: string,
+    @param.query.string('id_pagcre', {required: true}) id_pagcre: string
+  ): Promise<void> {
+    console.log(`
+    select * from pag_cuo_ven where cod_cre = '${creditCode}' and id_pagcre = ${id_pagcre}
+  `)
+    const existsPayment = await this.transferredCreditPaymentsRepository.execute(`
+      select * from pag_cuo_ven where cod_cre = '${creditCode}' and id_pagcre = ${id_pagcre}
+    `)
+
+    if (existsPayment.length === 0) {
+      throw new HttpErrors.NotFound("payment not found");
+    }
+
+    const paymentsAfter = await this.transferredCreditPaymentsRepository.execute(`
+      select count(*) from pag_cuo_ven pc
+      where cod_cre = '${creditCode}'
+      and fec_reg_pag > (select fec_reg_pag  from pag_cuo_ven where cod_cre = '${creditCode}' and id_pagcre = ${id_pagcre})
+    `)
+
+    if (paymentsAfter[0].count > 0) {
+      throw new HttpErrors.BadRequest("credit has payments after");
+    }
+
+    await this.transferredCreditPaymentsRepository.execute(`
+      delete from pag_cuo_ven where cod_cre = '${creditCode}' and id_pagcre = ${id_pagcre}
+    `)
   }
 }

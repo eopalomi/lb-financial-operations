@@ -4,18 +4,17 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
   del,
   get,
-  getModelSchemaRef,
-  param,
+  getModelSchemaRef, HttpErrors, param,
   patch,
   post,
   put,
   requestBody,
-  response,
+  response
 } from '@loopback/rest';
 import {OwnCreditPayments} from '../models';
 import {OwnCreditPaymentsRepository} from '../repositories';
@@ -126,7 +125,7 @@ export class OnwCreditPaymentsController {
     })
     ownCreditPayments: OwnCreditPayments,
   ): Promise<void> {
-    await this.ownCreditPaymentsRepository.updateById(id, ownCreditPayments);
+    // await this.ownCreditPaymentsRepository.updateById(id, ownCreditPayments);
   }
 
   @put('/own-credit-payments/{id}')
@@ -137,14 +136,37 @@ export class OnwCreditPaymentsController {
     @param.path.string('id') id: string,
     @requestBody() ownCreditPayments: OwnCreditPayments,
   ): Promise<void> {
-    await this.ownCreditPaymentsRepository.replaceById(id, ownCreditPayments);
+    // await this.ownCreditPaymentsRepository.replaceById(id, ownCreditPayments);
   }
 
-  @del('/own-credit-payments/{id}')
+  @del('/own-credit-payments/{creditCode}')
   @response(204, {
     description: 'OwnCreditPayments DELETE success',
   })
-  async deleteById(@param.path.string('id') id: string): Promise<void> {
-    await this.ownCreditPaymentsRepository.deleteById(id);
+  async deleteById(
+    @param.path.string('creditCode', {length: 8}) creditCode: string,
+    @param.query.string('id_pagcre', {required: true}) id_pagcre: string
+  ): Promise<void> {
+    const existsPayment = await this.ownCreditPaymentsRepository.execute(`
+      select * from pag_cuo where cod_cre = '${creditCode}' and id_pagcre = ${id_pagcre}
+    `)
+
+    if (existsPayment.length === 0) {
+      throw new HttpErrors.NotFound("payment not found");
+    }
+
+    const paymentsAfter = await this.ownCreditPaymentsRepository.execute(`
+      select count(*) from pag_cuo pc
+      where cod_cre = '${creditCode}'
+      and fec_reg_pag > (select fec_reg_pag  from pag_cuo where cod_cre = '${creditCode}' and id_pagcre = ${id_pagcre})
+    `)
+
+    if (paymentsAfter[0].count > 0) {
+      throw new HttpErrors.BadRequest("credit has payments after");
+    }
+
+    await this.ownCreditPaymentsRepository.execute(`
+      delete from pag_cuo where cod_cre = '${creditCode}' and id_pagcre = ${id_pagcre}
+    `)
   }
 }
