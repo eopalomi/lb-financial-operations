@@ -7,3 +7,5 @@ export * from './transferred-payment-schedule.controller';
 export * from './receipt.controller';
 export * from './credit-information.controller';
 export * from './payment-process.controller';
+export * from './own-payment-canceled.controller';
+export * from './transferred-payment-canceled.controller';

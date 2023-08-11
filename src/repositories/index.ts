@@ -6,3 +6,5 @@ export * from './receipt-number.repository';
 export * from './transferred-credit-payments.repository';
 export * from './transferred-payment-schedule.repository';
 
+export * from './own-payment-canceled.repository';
+export * from './transferred-payment-canceled.repository';
