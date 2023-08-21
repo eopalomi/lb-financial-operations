@@ -46,7 +46,7 @@ export class TransferredCreditPayments extends Entity {
   lug_rec: string;
 
   @property({
-    type: 'string',
+    type: 'number',
     id: true,
     required: true,
     postgresql: {
@@ -57,7 +57,7 @@ export class TransferredCreditPayments extends Entity {
       nullable: 'NO',
     },
   })
-  num_ric: string;
+  num_ric: number;
 
   @property({
     type: 'string',

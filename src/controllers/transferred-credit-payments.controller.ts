@@ -48,17 +48,6 @@ export class TransferredCreditPaymentsController {
     return this.transferredCreditPaymentsRepository.create(transferredCreditPayments);
   }
 
-  @get('/transferred-credit-payments/count')
-  @response(200, {
-    description: 'TransferredCreditPayments model count',
-    content: {'application/json': {schema: CountSchema}},
-  })
-  async count(
-    @param.where(TransferredCreditPayments) where?: Where<TransferredCreditPayments>,
-  ): Promise<Count> {
-    return this.transferredCreditPaymentsRepository.count(where);
-  }
-
   @get('/transferred-credit-payments')
   @response(200, {
     description: 'Array of TransferredCreditPayments model instances',
